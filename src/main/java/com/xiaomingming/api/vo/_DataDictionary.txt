@@ -1,0 +1,92 @@
+
+Table: fo_forder
+----------------+-------------+------+-----+---------+---------
+ Field          | Type        | Null | Key | Default | Remarks 
+----------------+-------------+------+-----+---------+---------
+ id             | INT(10)     | NO   | PRI |         |         
+ fo_name        | VARCHAR(50) | YES  |     |         | 文件夹名    
+ fo_create_time | INT(10)     | YES  |     |         | 创建时间    
+ pr_id          | INT(10)     | YES  |     |         |         
+----------------+-------------+------+-----+---------+---------
+
+Table: hi_histroy
+---------+-------------+------+-----+---------+---------
+ Field   | Type        | Null | Key | Default | Remarks 
+---------+-------------+------+-----+---------+---------
+ id      | INT(10)     | NO   | PRI |         |         
+ hi_info | VARCHAR(50) | YES  |     |         | 具体操作    
+ hi_time | INT(10)     | YES  |     |         | 此历史时间   
+ in_id   | INT(10)     | YES  |     |         |         
+ pr_id   | INT(10)     | YES  |     |         |         
+---------+-------------+------+-----+---------+---------
+
+Table: in_interface
+-----------------+----------------------+------+-----+---------+---------
+ Field           | Type                 | Null | Key | Default | Remarks 
+-----------------+----------------------+------+-----+---------+---------
+ id              | INT(10)              | NO   | PRI |         |         
+ in_name         | VARCHAR(255)         | YES  |     |         | 接口名     
+ in_url          | VARCHAR(255)         | YES  |     |         | 接口子路径   
+ in_method       | VARCHAR(255)         | YES  |     |         | 接口请求方式  
+ in_document     | LONGTEXT(2147483647) | YES  |     |         | 接口文档    
+ in_type         | INT(10)              | YES  |     |         | 接口类型：0当前，１历史
+ fo_id           | INT(10)              | YES  |     |         |         
+ in_response_ok  | LONGTEXT(2147483647) | YES  |     |         | 成功时的响应内容
+ in_response_err | LONGTEXT(2147483647) | YES  |     |         | 失败时的响应内容
+-----------------+----------------------+------+-----+---------+---------
+
+Table: pa_param
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         |         
+ pa_key     | VARCHAR(255) | YES  |     |         | 参数名     
+ pa_value   | VARCHAR(255) | YES  |     |         | 参数值     
+ pa_example | VARCHAR(255) | YES  |     |         | 参数示例    
+ in_id      | INT(10)      | YES  |     |         |         
+------------+--------------+------+-----+---------+---------
+
+Table: pr_project
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         |         
+ pr_name        | VARCHAR(255) | YES  |     |         | 工程名     
+ pr_create_time | INT(10)      | YES  |     |         | 创建时间    
+ pr_root_url    | VARCHAR(50)  | YES  |     |         | 工程主路径   
+----------------+--------------+------+-----+---------+---------
+
+Table: re_response
+------------+----------------------+------+-----+---------+---------
+ Field      | Type                 | Null | Key | Default | Remarks 
+------------+----------------------+------+-----+---------+---------
+ id         | INT(10)              | NO   | PRI |         |         
+ re_content | LONGTEXT(2147483647) | YES  |     |         | 响应内容    
+ re_type    | INT(10)              | YES  |     |         | 响应类型：0，成功，１失败
+ in_id      | INT(10)              | YES  |     |         |         
+------------+----------------------+------+-----+---------+---------
+
+Table: us_user
+----------------+---------------+------+-----+---------+---------
+ Field          | Type          | Null | Key | Default | Remarks 
+----------------+---------------+------+-----+---------+---------
+ id             | INT(10)       | NO   | PRI |         |         
+ us_email       | VARCHAR(50)   | YES  |     |         | 邮箱号     
+ us_pass        | VARCHAR(50)   | YES  |     |         | 密码      
+ us_name        | VARCHAR(50)   | YES  |     |         | 用户名     
+ us_icon        | VARCHAR(2048) | YES  |     |         | 用户头像    
+ us_mobile      | VARCHAR(50)   | YES  |     |         | 手机号     
+ us_openid      | INT(10)       | YES  |     |         |         
+ us_regest_time | INT(10)       | YES  |     |         | 注册时间    
+ us_last_time   | INT(10)       | YES  |     |         | 最后登陆时间  
+----------------+---------------+------+-----+---------+---------
+
+Table: user_project
+-------+---------+------+-----+---------+---------
+ Field | Type    | Null | Key | Default | Remarks 
+-------+---------+------+-----+---------+---------
+ id    | INT(10) | NO   | PRI |         |         
+ us_id | INT(10) | YES  |     |         |         
+ pr_id | INT(10) | YES  |     |         |         
+-------+---------+------+-----+---------+---------
+

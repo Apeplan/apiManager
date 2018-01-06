@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="vo">
+    <output-path>$PROJECT_DIR$/out/artifacts/vo</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="apiManager" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.44" />
+          <element id="library" level="project" name="Maven: com.jfinal:jfinal:3.3" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.2.5" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.44" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.29" />
+          <element id="library" level="module" name="Maven: com.alibaba:jconsole:1.8.0" module-name="apiManager" />
+          <element id="library" level="module" name="Maven: com.alibaba:tools:1.8.0" module-name="apiManager" />
+          <element id="library" level="project" name="Maven: com.jfinal:cos:2017.5" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="apiManager/web/Web" />
+    </root>
+  </artifact>
+</component>
