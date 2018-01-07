@@ -3,8 +3,8 @@
 <html lang="zh-CN">
 <head>
     <jsp:include page="public/base.jsp"/>
-    <link rel="stylesheet" href="../static/css/jquery.jsonview.min.css">
-    <script type="text/javascript" src="../static/js/jquery.jsonview.min.js"></script>
+    <link rel="stylesheet" href="${_basePath}/static/css/jquery.jsonview.min.css?v=${_jsvesion}">
+    <script type="text/javascript" src="${_basePath}/static/js/jquery.jsonview.min.js?v=${_jsvesion}"></script>
     <style type="text/css">
         html, body, #app, .layout {
             height: 100%;
