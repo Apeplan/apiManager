@@ -12,6 +12,7 @@
 ![登陆页面](http://hcwy.xiaomingming.top/images/20180106/4e644701-4a7a-4cbd-8b3f-c8baea114469.png)
 ![接口请求](http://hcwy.xiaomingming.top/images/20180106/474312ef-9ea1-4493-8c64-c9557969dea4.png)
 ![接口详情](http://hcwy.xiaomingming.top/images/20180106/75959d7c-2b16-4ecb-aba9-2a1f7ecc786c.png)
+![接口详情](http://hcwy.xiaomingming.top/images/20180107/e4499c87-cbdf-4002-94f9-e1d5a02264e9.jpg)
 
 ### 架构
 
@@ -42,8 +43,7 @@
 
 >具体原因请看:InterfaceCtr.java的getSendResponse() - > java童鞋应该能秒懂
 
-### 结构
-![接口详情](http://hcwy.xiaomingming.top/images/20180107/b9d16b45-26b0-41e3-94cd-8743a9f63a02.png)
+
 
 
 
