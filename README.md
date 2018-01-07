@@ -13,13 +13,13 @@
 ![接口请求](http://hcwy.xiaomingming.top/images/20180106/474312ef-9ea1-4493-8c64-c9557969dea4.png)
 ![接口详情](http://hcwy.xiaomingming.top/images/20180106/75959d7c-2b16-4ecb-aba9-2a1f7ecc786c.png)
 
-### 技术架构
+### 架构
 
 >后端: jfinal + jsp
 
 >前端: vue + iview + jquery
 
-### 相关文档(传送门)
+### 文档(传送门)
 [jfinal 在线文档](http://download.jfinal.com/download/3.3/jfinal-3.3-manual.pdf)  
 [vue2.0 在线文档](https://cn.vuejs.org/v2/guide/)  
 [iview 在线文档](https://www.iviewui.com/components/grid)  
@@ -28,7 +28,7 @@
 ### 环境
 > jdk1.7 + maven + tomcat7 + mysql
 
-### 项目部署
+### 部署
 > git clone 项目
 
 > 数据库导入resources目录下api_sql脚本
@@ -37,10 +37,13 @@
 
 > 修改resources目录下api_config.txt数据库配置文件
 
-### 项目弊端
+### 弊端
 >请求内网地址,需在内网地址内,将此项目跑起来
 
 >具体原因请看:InterfaceCtr.java的getSendResponse() - > java童鞋应该能秒懂
+
+### 结构
+![接口详情](http://hcwy.xiaomingming.top/images/20180107/b9d16b45-26b0-41e3-94cd-8743a9f63a02.png)
 
 
 
