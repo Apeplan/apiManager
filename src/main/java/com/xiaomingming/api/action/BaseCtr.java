@@ -6,6 +6,7 @@ import com.xiaomingming.api.utils.ProjectResult;
 import com.xiaomingming.api.vo.UsUser;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,10 @@ public abstract class BaseCtr extends Controller {
     }
 
     public void onOk(Object data) {
+        HttpServletResponse response = getResponse();
+        response.setContentType("text/html; charset=utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         renderJson(JSON.toJSONString(new ProjectResult(data)));
     }
 
@@ -45,6 +50,10 @@ public abstract class BaseCtr extends Controller {
     }
 
     public void onErr(String msg, int code) {
+        HttpServletResponse response = getResponse();
+        response.setContentType("text/html; charset=utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         renderJson(JSON.toJSONString(new ProjectResult(msg, code)));
     }
 

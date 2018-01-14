@@ -110,9 +110,6 @@ public class InterfaceCtr extends BaseCtr {
     }
 
     public void getSendResponse() {
-//        if (is_login()) {
-//            算求了..不用登陆也能调用...
-//        }
         HttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
         response.setContentType("text/html; charset=utf-8");
@@ -132,20 +129,12 @@ public class InterfaceCtr extends BaseCtr {
         }
         try {
             if (!StrKit.isBlank(requestUrl)) {
-                logger.info(" - - > requestUrl: " + requestUrl + " - - - - - " + JSON.toJSONString(map));
-                String result_data = ProjectUtil.getResultByPOST(requestUrl, map);
-                logger.info(" - - > responseData: " + result_data);
-                System.out.println(result_data);
-                response.getWriter().append(result_data).flush();
+                renderJson(ProjectUtil.getResultByPOST(requestUrl, map));
             } else {
-                response.getWriter().append("{\"data\":\"\",\"msg\":\"接口url不能为空\",\"status\":-1}").flush();
+                onErr("接口requestUrl不能为空");
             }
         } catch (Exception e) {
-            try {
-                response.getWriter().append("{\"data\":\"" + e.getMessage() + "\",\"msg\":\"接口请求失败\",\"status\":-1}").flush();
-            } catch (IOException e1) {
-                logger.info(" - - > getSendResponse : " + e1.getMessage());
-            }
+            onErr("接口请求失败:" + e.getMessage());
         }
     }
 }
