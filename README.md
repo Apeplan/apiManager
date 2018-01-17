@@ -2,7 +2,7 @@
 >api接口请求及管理简易java后台
 
 [项目演示地址](http://www.xiaomingming.top/vo/)  
->http://www.xiaomingming.top/vo/
+>http://www.xiaomingming.top/
 
 
 ### 引子
