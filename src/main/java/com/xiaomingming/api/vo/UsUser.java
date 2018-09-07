@@ -7,5 +7,5 @@ import com.xiaomingming.api.vo.base.BaseUsUser;
  */
 @SuppressWarnings("serial")
 public class UsUser extends BaseUsUser<UsUser> {
-	
+    public static UsUser dao = new UsUser();
 }

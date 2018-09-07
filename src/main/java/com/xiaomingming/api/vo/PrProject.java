@@ -11,5 +11,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class PrProject extends BasePrProject<PrProject> {
 
+    public static PrProject dao = new PrProject();
     public List<FoForder> foders = new ArrayList<FoForder>();
 }

@@ -2,6 +2,7 @@ package com.xiaomingming.api.service;
 
 import com.alibaba.fastjson.JSON;
 import com.jfinal.aop.Before;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.xiaomingming.api.vo.InInterface;
 import com.xiaomingming.api.vo.PaParam;
@@ -16,8 +17,12 @@ public class InterfaceService {
     private static final InInterface inDao = new InInterface().dao();
     private static final PaParam paDao = new PaParam().dao();
 
-    public List<InInterface> getAllInterfaces(int fo_id) {
+    public List<InInterface> getAllInterfaces(Object fo_id) {
         return inDao.find("select * from in_interface where fo_id = ?", fo_id);
+    }
+
+    public int delInterfacesByForder(Object fo_id) {
+        return Db.delete("delete from in_interface where fo_id = ?", fo_id);
     }
 
     public InInterface getInterfaceByID(int in_id) {

@@ -4,7 +4,10 @@ import com.jfinal.aop.Before;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.xiaomingming.api.action.BaseCtr;
+import com.xiaomingming.api.service.FoderService;
 import com.xiaomingming.api.service.ProjectService;
+import com.xiaomingming.api.utils.ProjectUtil;
+import com.xiaomingming.api.vo.PrProject;
 
 /**
  * Created by Administrator on 2018/1/2.
@@ -12,6 +15,7 @@ import com.xiaomingming.api.service.ProjectService;
 public class ProjectCtr extends BaseCtr {
 
     private ProjectService service = new ProjectService();
+    private FoderService foderService = new FoderService();
 
     public void getProjects() {
         if (is_login()) {
@@ -25,18 +29,41 @@ public class ProjectCtr extends BaseCtr {
     }
 
     @Before(Tx.class)
-    public void addProject() {
+    public void editProject() {
         if (is_login()) {
-            String prName = getPara("pr_name");
+            String prName = getPara("prName");
+            String id = getPara("id");
             if (StrKit.isBlank(prName)) {
-                onErr("请录入工程名");
+                onErr("请录入项目名");
                 return;
             }
             try {
-                onOk(service.addProject(mCurrentUser.getId(), prName));
+                if (ProjectUtil.isEmpty(id)) {
+                    PrProject project = service.addProject(mCurrentUser.getId(), prName, getPara("prInfo"));
+                    onOk(project);
+                    foderService.addFoder(project.getId(), "新建文件夹");
+                } else {
+                    onOk(service.editProject(mCurrentUser.getId(), id, prName, getPara("prInfo")));
+                }
             } catch (Exception e) {
                 logger.info(e);
-                onErr("添加失败: " + e.getMessage());
+                onErr("操作失败: " + e.getMessage());
+            }
+        }
+    }
+
+    @Before(Tx.class)
+    public void delProject() {
+        if (is_login()) {
+            try {
+                String id = getPara("id");
+                if (ProjectUtil.isEmpty(id)) {
+                    throw new RuntimeException("项目不存在");
+                }
+                onOk(service.delProject(mCurrentUser.getId(), id));
+            } catch (Exception e) {
+                logger.info(e);
+                onErr("操作失败: " + e.getMessage());
             }
         }
     }

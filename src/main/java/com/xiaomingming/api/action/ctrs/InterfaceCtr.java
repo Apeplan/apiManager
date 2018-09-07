@@ -8,10 +8,12 @@ import com.xiaomingming.api.action.ProjectValidator;
 import com.xiaomingming.api.service.InterfaceService;
 import com.xiaomingming.api.utils.ProjectUtil;
 import com.xiaomingming.api.vo.InInterface;
+import com.xiaomingming.api.vo.PaParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +74,29 @@ public class InterfaceCtr extends BaseCtr {
             return;
         }
         try {
-            onOk(service.getInterfaceByID(Integer.parseInt(in_id)));
+            InInterface data = service.getInterfaceByID(Integer.parseInt(in_id));
+            if (data == null) {
+                onErr("此接口不存在");
+                return;
+            }
+            resultMap.put("fo_id", data.getFoId());
+            resultMap.put("in_id", data.getId());
+            resultMap.put("in_url", data.getInUrl());
+            resultMap.put("in_name", data.getInName());
+            resultMap.put("in_response_ok", data.getInResponseOk());
+            resultMap.put("in_response_err", data.getInResponseErr());
+            List<Object> list = new ArrayList<>();
+            for (PaParam para : service.getParamsByInID(Integer.parseInt(in_id))) {
+                HashMap<String, Object> itemMap = new HashMap<>();
+                itemMap.put("id", para.getId());
+                itemMap.put("in_id", para.getInId());
+                itemMap.put("pa_key", para.getPaKey());
+                itemMap.put("pa_value", para.getPaValue());
+                itemMap.put("pa_example", para.getPaExample());
+                list.add(itemMap);
+            }
+            resultMap.put("params", list);
+            onOk(resultMap);
         } catch (Exception e) {
             logger.info(e);
             onErr("接口详情获取失败: " + e.getMessage());
@@ -119,7 +143,7 @@ public class InterfaceCtr extends BaseCtr {
         HashMap<String, String> map = new HashMap<String, String>();
         Enumeration<String> names = request.getParameterNames();
         while (names.hasMoreElements()) {
-            String key = (String) names.nextElement();
+            String key = names.nextElement();
             String val = request.getParameter(key);
             if (key.equals("requestUrl")) {
                 requestUrl = val;
@@ -129,7 +153,7 @@ public class InterfaceCtr extends BaseCtr {
         }
         try {
             if (!StrKit.isBlank(requestUrl)) {
-                renderJson(ProjectUtil.getResultByPOST(requestUrl, map));
+                renderText(ProjectUtil.getResultByPOST(requestUrl, map));
             } else {
                 onErr("接口requestUrl不能为空");
             }

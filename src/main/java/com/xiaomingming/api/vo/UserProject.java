@@ -7,5 +7,5 @@ import com.xiaomingming.api.vo.base.BaseUserProject;
  */
 @SuppressWarnings("serial")
 public class UserProject extends BaseUserProject<UserProject> {
-	
+    public static UserProject dao = new UserProject();
 }

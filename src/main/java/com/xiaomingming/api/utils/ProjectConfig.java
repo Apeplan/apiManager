@@ -48,8 +48,9 @@ public class ProjectConfig extends JFinalConfig {
      * 配置路由
      */
     public void configRoute(Routes me) {
-        me.setBaseViewPath("/views");
-        me.add("/", ViewController.class);    // 第三个参数为该Controller的视图存放路径
+        me.setBaseViewPath("/views/manager/dist");
+//        me.setBaseViewPath("/views");
+        me.add("/", ViewController.class);
         me.add("/user", UserCtr.class);
         me.add("/project", ProjectCtr.class);
         me.add("/foder", FoderCtr.class);
@@ -57,7 +58,6 @@ public class ProjectConfig extends JFinalConfig {
     }
 
     public void configEngine(Engine me) {
-//		me.addSharedFunction("/common/_paginate.html");
     }
 
     /**
@@ -70,6 +70,7 @@ public class ProjectConfig extends JFinalConfig {
 
         // 配置ActiveRecord插件
         ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
+        arp.setShowSql(true);
         // 所有映射在 MappingKit 中自动化搞定
         _MappingKit.mapping(arp);
         me.add(arp);

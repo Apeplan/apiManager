@@ -24,7 +24,6 @@ public class ProjectValidator extends Validator {
             case "/user":
                 validateRequiredString("phone", "", "手机号不能为空");
                 validateRequiredString("pass", "", "密码不能为空");
-                validateRequiredString("yzimg", "", "验证码不能为空");
                 break;
             case "/interface":
                 validateRequiredString("fo_id", "", "请重新选择文件夹");

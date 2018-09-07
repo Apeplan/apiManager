@@ -7,7 +7,9 @@ import com.xiaomingming.api.vo.UsUser;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,13 +19,14 @@ import java.util.Map;
 public abstract class BaseCtr extends Controller {
 
     protected Map<String, Object> resultMap = new HashMap<String, Object>();
+    protected List<Object> resultList = new ArrayList<>();
 
     protected Logger logger = Logger.getLogger(this.getClass());
 
     protected UsUser mCurrentUser = null;
 
     protected boolean is_login() {
-        UsUser user = getSessionAttr("_currentUser");
+        UsUser user = UsUser.dao.findById(getPara("us_id"));
         if (user == null) {
             needLogin();
             return false;
@@ -34,7 +37,7 @@ public abstract class BaseCtr extends Controller {
     }
 
     private void needLogin() {
-        onErr("请重新登陆后再试试 ^_^ ");
+        onErr("请重新登陆后再试试");
     }
 
     public void onOk(Object data) {
