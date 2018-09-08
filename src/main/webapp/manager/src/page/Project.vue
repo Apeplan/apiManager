@@ -7,6 +7,7 @@
           <am-button @click="def = {};isEdit = true">创建项目</am-button>
         </am-col>
       </am-row>
+      <i class="absolute orange am-icon-sign-out logout" @click="_cache.put('userinfo','');_value.userinfo = null;$router.push('/login')"></i>
     </div>
     <am-container>
       <div v-for="item in projects" class="am-fl am-u-sm-12 am-u-md-3 alignC white-bg">
@@ -14,7 +15,8 @@
           <img class="i-icon" src="@/assets/img/icon-computer.png"/>
           <div class="i-name">{{item.prName}}</div>
           <div class="i-info">{{isEmpty(item.prInfo) ? '暂无简介':item.prInfo}}</div>
-          <i type="close" class="i-close absolute orange am-icon-close" @click="def = item;isDel = true"></i>
+          <i class="i-close absolute orange am-icon-close" @click="def = item;isDel = true"></i>
+          <i class="i-share absolute orange am-icon-share-alt" @click="def = item;isShare = true"></i>
           <div class="i-footer relative">
             <am-button class="i-action" @click="_value.projectinfo = item;$router.push('/index/'+ item.id)">
               进入控制台
@@ -56,6 +58,17 @@
         <am-button @click="isDel = false;onDel(def)">删除</am-button>
       </am-modal-footer>
     </am-modal>
+    <am-modal :is-show.sync="isShare" class="am-u-sm-12 am-u-md-4 am-center">
+      <am-modal-header class="orange alignC">分享[{{def.prName}}]至</am-modal-header>
+      <am-modal-body>
+        <div class="alignC">
+          <am-input type="number" placeholder="请输入对方帐号" v-model="shardname"></am-input>
+        </div>
+      </am-modal-body>
+      <am-modal-footer>
+        <am-button @click="onShard(shardname)">确定</am-button>
+      </am-modal-footer>
+    </am-modal>
   </div>
 </template>
 
@@ -65,6 +78,8 @@
   export default {
     data() {
       return {
+        shardname: '',
+        isShare: false,
         isEdit: false,
         isDel: false,
         def: {},
@@ -92,6 +107,32 @@
       },
       reset() {
 
+      },
+      onShard(shardname) {
+        console.info(_this.def)
+        if (_this.isEmpty(shardname) || shardname.length !== 11) {
+          _this.$notify({
+            message: '请正确输入对方已注册手机号',
+            type: 'error'
+          });
+        } else {
+          _this._model.getRequest(_this._model.urls.project_shardProject, {
+            us_id: _this._value.userinfo.id, pr_id: _this.def.id, to_name: shardname
+          }, (res, isErr) => {
+            if (isErr) {
+              _this.$notify({
+                message: res,
+                type: 'error'
+              });
+            } else {
+              _this.isShare = false;
+              _this.$notify({
+                message: '分享成功,对方已收到项目',
+                type: 'success'
+              });
+            }
+          })
+        }
       },
       onDel(item) {
         item.us_id = _this._value.userinfo.id;
@@ -150,6 +191,12 @@
 
 
 <style scoped>
+  .logout {
+    right: 30px;
+    top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 
   .am-modal-footer {
     text-align: center;
@@ -229,7 +276,13 @@
     right: 10px;
   }
 
-  .i-layout:hover > .i-close {
+  .i-layout .i-share {
+    display: none;
+    top: 30px;
+    right: 10px;
+  }
+
+  .i-layout:hover > .i-close, .i-layout:hover > .i-share {
     display: inline-block;
   }
 

@@ -8,4 +8,8 @@ import com.xiaomingming.api.vo.base.BaseUsUser;
 @SuppressWarnings("serial")
 public class UsUser extends BaseUsUser<UsUser> {
     public static UsUser dao = new UsUser();
+
+    public UsUser queryUserByUserName(String username) {
+        return dao.findFirst("select * from us_user where us_mobile = ?", username);
+    }
 }

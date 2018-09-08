@@ -41,7 +41,7 @@
       return {
         isRegist: false,
         isShowCode: false,
-        username: '17070851172',
+        username: '',
         password: '',
         msgcode: '',
         serviceCode: '',

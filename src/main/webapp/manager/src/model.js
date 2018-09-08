@@ -5,7 +5,8 @@
 /**
  * 工程url
  */
-const ROOT = 'http://127.0.0.1:8080/';
+// const ROOT = 'http://127.0.0.1/';
+const ROOT = '';
 
 export default {
   getRequest(url, req, Callback) {
@@ -57,6 +58,10 @@ export default {
      * 删除项目
      */
     project_delProject: ROOT + "project/delProject",
+    /**
+     * 项目分享
+     */
+    project_shardProject: ROOT + "project/shardProject",
     /**
      * 文件夹列表
      */

@@ -8,6 +8,8 @@ import com.xiaomingming.api.service.FoderService;
 import com.xiaomingming.api.service.ProjectService;
 import com.xiaomingming.api.utils.ProjectUtil;
 import com.xiaomingming.api.vo.PrProject;
+import com.xiaomingming.api.vo.UsUser;
+import com.xiaomingming.api.vo.UserProject;
 
 /**
  * Created by Administrator on 2018/1/2.
@@ -48,6 +50,28 @@ public class ProjectCtr extends BaseCtr {
             } catch (Exception e) {
                 logger.info(e);
                 onErr("操作失败: " + e.getMessage());
+            }
+        }
+    }
+
+    @Before(Tx.class)
+    public void shardProject() {
+        if (is_login()) {
+            try {
+                String pr_id = getPara("pr_id");
+                String to_name = getPara("to_name");
+                service.checkUser(mCurrentUser.getId(), pr_id);
+                UsUser user = UsUser.dao.queryUserByUserName(to_name);
+                if (user == null) {
+                    throw new RuntimeException("该用户不存在,请仔细核对");
+                } else {
+                    UserProject userProject = new UserProject();
+                    userProject.setUsId(user.getId());
+                    userProject.setPrId(Integer.parseInt(pr_id));
+                    onOk(userProject.save());
+                }
+            } catch (Exception e) {
+                onErr(e.getMessage());
             }
         }
     }
