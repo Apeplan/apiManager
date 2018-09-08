@@ -6,7 +6,7 @@
           <div class="a-layout">
             <div class="a-header slide-bg">
               <div class="a-mobile">{{_value.userinfo.usName}}</div>
-              <div class="a-project">{{_value.projectinfo.prName}}<i class="am-icon-exchange" @click="$router.push('/project')"></i></div>
+              <div class="a-project">{{_value.projectinfo.prName}}<i class="am-icon-exchange" @click="_value.projectinfo = null;$router.push('/project')"></i></div>
             </div>
             <div class="a-search slide-bg">
               <am-input-group block class="relative">

@@ -9,6 +9,10 @@
   float: none !important;
 }
 
+.am-selected {
+  width: auto;
+}
+
 .animated {
   -webkit-animation-fill-mode: none;
   animation-fill-mode: none;
