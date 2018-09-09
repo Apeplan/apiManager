@@ -25,8 +25,9 @@
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_6.png" width="285" alt="111"/>
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_7.png" width="285" alt="111"/>
 </div>
+
 ### PC端
-####
+
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_1.png)
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_2.png)
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_3.png)
