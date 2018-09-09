@@ -26,6 +26,7 @@
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_7.png" width="285" alt="111"/>
 </div>
 ### PC端
+####
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_1.png)
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_2.png)
 ![img](http://pbstqnze8.bkt.clouddn.com/manager/pc_3.png)
@@ -35,12 +36,13 @@
 
 
 ### 数据结构
+
 ![接口详情](http://hcwy.xiaomingming.top/images/20180107/e4499c87-cbdf-4002-94f9-e1d5a02264e9.jpg)
 
 ### 架构
+> 后端: jfinal + jsp
 
->后端: jfinal + jsp
->前端: webpack + vue2 + 妹子UI + jquery
+> 前端: webpack + vue2 + 妹子UI + jquery
 
 ### 文档
 [jfinal 在线文档](http://download.jfinal.com/download/3.3/jfinal-3.3-manual.pdf)  
@@ -50,6 +52,7 @@
 
 ### 环境
 > 后端:jdk1.7 + maven + tomcat7 + mysql
+
 > 前端:node + webpack + vue 
 
 ### 部署
@@ -63,12 +66,16 @@
 
 ### 二开
 > cd src\main\webapp\manager
+
 > npm install
+
 > npm run build or npm run dev (dev模式下注意启动端口号,不能与tomcat启动端口相同)
+
 > your tomcat startup
 
 ### 弊端
 >请求内网地址,需在内网地址内,将此项目跑起来
+
 >具体原因请看:InterfaceCtr.java的getSendResponse() - > java童鞋应该能秒懂
 
 
