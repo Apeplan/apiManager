@@ -18,7 +18,7 @@
 <div align=center>
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_1.png" width="285" alt="111"/>
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_2.png" width="285" alt="111"/>
-<img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_4.png" width="285" alt="111"/>
+<img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_8.png" width="285" alt="111"/>
 </div>
 <div align=center>
 <img src="http://pbstqnze8.bkt.clouddn.com/manager/mobile_5.png" width="285" alt="111"/>
