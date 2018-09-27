@@ -56,11 +56,12 @@ public class InterfaceCtr extends BaseCtr {
             String params = getPara("params");
             String responsesOk = getPara("in_response_ok");
             String responsesErr = getPara("in_response_err");
+            String docStr = getPara("in_doc");
             try {
                 if ("0".equals(in_id)) {
-                    onOk(service.createItem(fo_id, in_url, in_name, params, responsesOk, responsesErr));
+                    onOk(service.createItem(fo_id, in_url, in_name, params, responsesOk, responsesErr, docStr));
                 } else {
-                    onOk(service.updateItem(fo_id, in_id, in_url, in_name, params, responsesOk, responsesErr));
+                    onOk(service.updateItem(fo_id, in_id, in_url, in_name, params, responsesOk, responsesErr, docStr));
                 }
             } catch (Exception e) {
                 logger.info(e);
@@ -85,6 +86,7 @@ public class InterfaceCtr extends BaseCtr {
             resultMap.put("in_id", data.getId());
             resultMap.put("in_url", data.getInUrl());
             resultMap.put("in_name", data.getInName());
+            resultMap.put("in_doc", data.getInDocument());
             resultMap.put("in_response_ok", data.getInResponseOk());
             resultMap.put("in_response_err", data.getInResponseErr());
             List<Object> list = new ArrayList<>();

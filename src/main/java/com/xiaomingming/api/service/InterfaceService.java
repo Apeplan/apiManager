@@ -34,7 +34,7 @@ public class InterfaceService {
     }
 
     @Before(Tx.class)
-    public InInterface createItem(String fo_id, String in_url, String in_name, String params, String responsesOk, String responsesErr) {
+    public InInterface createItem(String fo_id, String in_url, String in_name, String params, String responsesOk, String responsesErr, String docStr) {
         InInterface inInterface = new InInterface();
         inInterface.setFoId(Integer.parseInt(fo_id));
         inInterface.setInName(in_name);
@@ -42,6 +42,7 @@ public class InterfaceService {
         inInterface.setInMethod("POST");
         inInterface.setInResponseOk(responsesOk);
         inInterface.setInResponseErr(responsesErr);
+        inInterface.setInDocument(docStr);
         inInterface.setFoId(Integer.parseInt(fo_id));
         if (inInterface.save()) {
             List<PaParam> arrParam = JSON.parseArray(params, PaParam.class);
@@ -56,7 +57,7 @@ public class InterfaceService {
     }
 
     @Before(Tx.class)
-    public InInterface updateItem(String fo_id, String in_id, String in_url, String in_name, String params, String responsesOk, String responsesErr) {
+    public InInterface updateItem(String fo_id, String in_id, String in_url, String in_name, String params, String responsesOk, String responsesErr, String docStr) {
         InInterface inInterface = inDao.findById(in_id);
         inInterface.setFoId(Integer.parseInt(fo_id));
         inInterface.setInName(in_name);
@@ -65,6 +66,7 @@ public class InterfaceService {
         inInterface.setFoId(Integer.parseInt(fo_id));
         inInterface.setInResponseOk(responsesOk);
         inInterface.setInResponseErr(responsesErr);
+        inInterface.setInDocument(docStr);
         if (inInterface.update()) {
             List<PaParam> arrParam = JSON.parseArray(params, PaParam.class);
             if (arrParam != null) {

@@ -3,10 +3,16 @@
  */
 
 /**
- * 工程url
+ * 当前环境
+ * @type {boolean}
  */
-// const ROOT = 'http://127.0.0.1/';
-const ROOT = '';
+const isProduction = process.env.NODE_ENV === 'production'
+/**
+ * 工程url,
+ * npm run dev    时,数据请求地址为http://127.0.0.1:8080/
+ * npm run build  时,数据请求地址为相对路径,可不设置
+ */
+const ROOT = isProduction ? '' : 'http://127.0.0.1:8080/';
 
 export default {
   getRequest(url, req, Callback) {

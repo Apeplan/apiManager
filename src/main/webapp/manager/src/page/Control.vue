@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak class="w100 h100">
+  <div class="w100 h100" v-cloak>
     <ol class="am-breadcrumb" v-if="_value.forderinfo != null">
       <li>{{_value.projectinfo.prName}}</li>
       <li>{{_value.forderinfo.name}}</li>
@@ -60,7 +60,13 @@
           </div>
         </am-panel-footer>
       </am-panel>
-      <div class="am-u-md-6 pad-0">
+      <am-panel>
+        <am-panel-header title="接口文档" :title-level=4></am-panel-header>
+        <am-panel-body>
+          <v-editor ref="md" :initData="info.in_doc" :editorId="'markdown-editor-' + in_id"></v-editor>
+        </am-panel-body>
+      </am-panel>
+      <div class="pad-0">
         <am-panel color="danger" ref="resErr">
           <am-panel-header title="请求失败示例" :title-level=4></am-panel-header>
           <am-panel-body>
@@ -68,7 +74,7 @@
           </am-panel-body>
         </am-panel>
       </div>
-      <div class="am-u-md-6 pad-0">
+      <div class="pad-0">
         <am-panel color="success" ref="resErr">
           <am-panel-header title="请求成功示例" :title-level=4></am-panel-header>
           <am-panel-body>
@@ -92,6 +98,7 @@
 </template>
 
 <script>
+  import editor from '@/compoents/EditorMD';
   let _this = null;
 
   export default {
@@ -185,6 +192,7 @@
           let instance = _this.$loading();
           _this.info.us_id = _this._value.userinfo.id;
           _this.info.params = JSON.stringify(_this.params);
+          _this.info.in_doc = _this.$refs.md.getMarkdown();
           _this._model.getRequest(_this._model.urls.interface_saveInterface, _this.info, (res, isErr) => {
             instance.close();
             if (isErr) {
@@ -245,7 +253,6 @@
             return _this.syntaxHighlight(JSON.parse(str));
           }
         } catch (e) {
-          console.info(e);
           return str;
         }
       },
@@ -292,6 +299,11 @@
         });
       },
       copyToClipboard(str) {
+        try {
+          str = JSON.parse(str);
+        } catch (e) {
+          console.info(e);
+        }
         // 创建元素用于复制
         var aux = document.createElement("input");
         // 获取复制内容
@@ -316,7 +328,9 @@
     },
     watch: {},
     props: ['in_id'],
-    components: {},
+    components: {
+      'v-editor': editor
+    },
     computed: {},
     created() {
       this.$nextTick(() => {

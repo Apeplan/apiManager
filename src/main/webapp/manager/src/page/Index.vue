@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak class="w100 h100">
+  <div class="w100 h100" v-cloak>
     <div class="am-layout h100">
       <div class="am-layout horizontal w100 h100">
         <div class="am-aside h100">
@@ -72,7 +72,7 @@
       </am-modal-footer>
     </am-modal>
     <am-modal :is-show.sync="isShowEdit" class="am-u-sm-12 am-u-md-4 am-center">
-      <am-modal-header class="orange alignC">{{isEmpty(def.id) ? '新建文件夹':'编辑文件夹'}}</am-modal-header>
+      <am-modal-header class="orange alignC">{{isEmpty(def.id) ? '新建文件夹' : '编辑文件夹'}}</am-modal-header>
       <am-modal-body>
         <div class="alignC">
           <am-input placeholder="请输入文件夹名称" v-model="def.name"></am-input>
@@ -115,7 +115,6 @@
 
       },
       onEditForder(item) {
-        console.info(item);
         if (_this.isEmpty(item.name)) {
           _this.$message({
             title: '参数异常',
@@ -177,9 +176,7 @@
               type: 'error'
             });
           } else {
-            console.info(arr.length);
             _this.removeByValue(arr, item);
-            console.info(arr.length);
             _this.$message({
               title: '操作成功',
               message: ' ',
@@ -216,8 +213,10 @@
           } else {
             _this.menus = res;
             if (typeof menu == 'object') {
-              _this.onOpen(menu);
-              _this.$refs.vmenu.scrollTop(0);
+              if (!menu.isOpen) {
+                _this.onOpen(menu);
+                _this.$refs.vmenu.scrollTop(0);
+              }
             }
           }
         })
@@ -262,10 +261,6 @@
         _this.onSlide(_this.isSlide = false);
         if (!isexist) {
           _this.tabs.push(item);
-          let instance = _this.$loading();
-          setTimeout(() => {
-            instance.close();
-          }, 1000);
         }
       },
       onReset() {

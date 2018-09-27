@@ -1,0 +1,8 @@
+a[title="关于Editor.md"],
+a[title="Emoji表情"],
+a[title="使用帮助"],
+a[title="搜索"],
+a[title="全屏（按ESC还原）"],
+a[title="清空"] {
+  display: none !important;
+}

@@ -109,8 +109,11 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-new Vue({
-  el: '#app',
-  router,
-  render: (x) => x(App)
-});
+window.onload = () => {
+  new Vue({
+    el: '#app',
+    router,
+    render: (x) => x(App)
+  });
+
+}
