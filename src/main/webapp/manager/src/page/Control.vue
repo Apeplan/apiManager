@@ -112,8 +112,6 @@
         }
         if (_this.in_id !== 0) {
           _this.getInerfaces();
-        } else {
-          _this.getForders();
         }
       },
       getForders() {
@@ -134,6 +132,7 @@
                   id: res[i].id,
                 });
               }
+              _this.isSelectForder = true;
             }
           }
         })
@@ -181,12 +180,11 @@
           return;
         }
         if (_this.info.fo_id == 0) {
-          _this.isSelectForder = true;
+          _this.getForders();
         } else {
           let instance = _this.$loading();
           _this.info.us_id = _this._value.userinfo.id;
           _this.info.params = JSON.stringify(_this.params);
-          console.info(_this.info);
           _this._model.getRequest(_this._model.urls.interface_saveInterface, _this.info, (res, isErr) => {
             instance.close();
             if (isErr) {
@@ -263,7 +261,6 @@
               type: 'error'
             });
           } else {
-            console.info(res);
             _this.info = res;
             _this.params = res.params;
           }

@@ -6,6 +6,7 @@ import com.jfinal.kit.StrKit;
 import com.xiaomingming.api.action.BaseCtr;
 import com.xiaomingming.api.action.ProjectValidator;
 import com.xiaomingming.api.service.InterfaceService;
+import com.xiaomingming.api.utils.HttpClientUtils;
 import com.xiaomingming.api.utils.ProjectUtil;
 import com.xiaomingming.api.vo.InInterface;
 import com.xiaomingming.api.vo.PaParam;
@@ -13,6 +14,7 @@ import com.xiaomingming.api.vo.PaParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -153,7 +155,7 @@ public class InterfaceCtr extends BaseCtr {
         }
         try {
             if (!StrKit.isBlank(requestUrl)) {
-                renderText(ProjectUtil.getResultByPOST(requestUrl, map));
+                renderText(HttpClientUtils.post(URI.create(requestUrl), map));
             } else {
                 onErr("接口requestUrl不能为空");
             }
