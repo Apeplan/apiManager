@@ -1,7 +1,5 @@
 <template>
   <div class="markdown-editor-box">
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css">
-    <link rel="stylesheet" href="/static/editor.md/css/reset.css">
     <div :id="editorId"></div>
   </div>
 </template>
