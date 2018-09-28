@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>关于小明</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="宋昌明,前端,软件开发,工程师,简历,简介,介绍,小明,vue,webpack,jquery,node.js">
+    <meta name="keywords" content="宋昌明,前端,软件开发,工程师,简历,简介,介绍,小明,vue,webpack,jquery,node.js">
+    <link href="../static/css/reset.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.css">
+    <script type='text/javascript' charset="utf-8" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script type='text/javascript' charset="utf-8" src="https://cdn.bootcss.com/fullPage.js/2.9.7/jquery.fullpage.min.js"></script>
+    <script type='text/javascript' charset="utf-8" src="https://cdn.bootcss.com/vue/1.0.8/vue.min.js"></script>
+</head>
+<body>
+<div id="info-layout">
+    <div class="section l-info">
+        <div class="contener-info">
+            <div class="i-top">
+                <img class="i-bg" src="../static/img/about/icon_c.png">
+                <img class="i-img" src="../static/img/about/icon_me.jpg">
+            </div>
+            <div class="i-layout">
+                <div class="l-item">
+                    <img class="i-img" src="../static/img/about/icon_1.png">
+                    <div class="i-txt">年龄/{{userinfo.age}}</div>
+                </div>
+                <div class="l-item">
+                    <img class="i-img" src="../static/img/about/icon_2.png">
+                    <div class="i-txt">学历/{{userinfo.schooling}}</div>
+                </div>
+                <div class="l-item">
+                    <img class="i-img" src="../static/img/about/icon_3.png">
+                    <div class="i-txt">坐标/{{userinfo.address}}</div>
+                </div>
+                <div class="l-item">
+                    <img class="i-img" src="../static/img/about/icon_4.png">
+                    <div class="i-txt">状态/{{userinfo.status}}</div>
+                </div>
+            </div>
+            <div class="i-info">{{userinfo.info}}</div>
+            <div class="alignC">
+                <img class="mouse" src="../static/img/about/icon_down.png" @click="onNext">
+            </div>
+        </div>
+    </div>
+    <div class="section" v-for="item in projects">
+        <div class="contener h100">
+            <div class="ifram" @click.stop>
+                <iframe class="ifram-ifa" frameborder="0" :src="item.jumpUrl" sandbox="allow-scripts allow-same-origin allow-popups" scrolling="no"></iframe>
+                <img class="ifram-img" src="../static/img/about/template.png">
+                <span class="ifram-act"></span>
+            </div>
+            <div class="pro-info">
+                <div class="p-title">{{item.title}}</div>
+                <div class="p-info1">
+                    <div>{{item.technology}}</div>
+                </div>
+                <div class="p-info2" v-for="subItem in item.infos">
+                    <span class="p-point"></span>
+                    <div>{{subItem}}</div>
+                </div>
+            </div>
+            <div class="qr-info">
+                <img class="q-img" :src="item.qrImage">
+                <span class="q-txt">测试环境,扫码体验完整作品</span>
+            </div>
+        </div>
+    </div>
+    <div class="section l-works">
+        <div class="contener-info i-work">
+            <span class="i-r"></span>
+            <span class="i-h"></span>
+            <div class="w-header">
+                <span class="w-y">2018</span>
+                <span class="w-t">YEAR</span>
+                <span class="w-j">我的经历</span>
+            </div>
+            <div class="work-info" v-for="item in works">
+                <span class="t-etime">{{item.s_time}}</span>
+                <span class="t-stime">{{item.e_time}}</span>
+                <span class="t-line"></span>
+                <span class="t-radio"></span>
+                <div class="w-info">
+                    <div class="w-complay">{{item.complay}}</div>
+                    <div class="w-woker">{{item.woker}}</div>
+                    <div class="w-info">{{item.info}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /**
+     禁止PC浏览器拖拽图片
+     */
+    document.ondragstart = function () {
+        return false;
+    };
+    $(function () {
+        new Vue({
+            el: '#info-layout',
+            data: {
+                userinfo: {
+                    age: '28岁',
+                    schooling: '本科',
+                    address: '惠州',
+                    status: '在职',
+                    info: '您好,我是小明,28岁,现居广东惠州,我是一名资深前端研发工程师,三年移动互联网经验,两年半全职前端开发,熟悉Webpack,Vue,jQuery等,深造模块化开发之道,高效的自学能力,具备独立分析需求&问题,及多方案解决问题的能力,强烈的自我驱动力,代码强迫症患者...'
+                },
+                projects: [{
+                    title: '惠车无忧',
+                    jumpUrl: 'http://www.xiaomingming.top/hcwy/userhome',
+                    qrImage: 'http://www.xiaomingming.top/files/hcwy/qr/7467ad2cec474fb2a327652d8a9fb853.png',
+                    technology: 'webpack vue vuex vue-rotuer vue-lazy jQuery 百度地图 车联网IOT 七牛云 CDN',
+                    infos: [
+                        '使用xmind进行需求分析',
+                        '使用墨刀进行原型图设计',
+                        '进行前端框架调研,框架选型,初始化项目',
+                        '高度组件化,模块化思维编码,组件复用性50%以上',
+                        '对接微信公众号支付,支付宝H5支付,微信分享,七牛云上传',
+                        '安卓,公众号,小程序平台调试能力',
+                        '测试帐号:17070851172,密:1122112',
+                    ]
+                }, {
+                    title: '心选商城',
+                    jumpUrl: 'http://b.xiaomingming.top:16953/test',
+                    qrImage: 'http://www.xiaomingming.top/files/hcwy/qr/fb63cac2366a4a33a52f89a22c044c5e.png',
+                    technology: 'jsp vue jQuery 七牛云 CDN H5+ 混合app',
+                    infos: [
+                        '配合后端人员,编写高可复用jsp',
+                        '配合android,ios嵌套webview,完成各种原生app操作',
+                        '对接微信公众号支付,支付宝H5支付,微信分享',
+                        '测试帐号:17070851172,密:1122112',
+                    ]
+                }, {
+                    title: '变速箱查询系统',
+                    jumpUrl: 'http://www.xiaomingming.top/hcwy/carhome?from=android',
+                    qrImage: 'http://www.xiaomingming.top/files/hcwy/qr/05de2bc888994c559ebe17f391d90342.png',
+                    technology: 'jsp vue jQuery 七牛云 CDN',
+                    infos: [
+                        '解决汽车后市场变速箱型号杂乱精确查询问题',
+                        '独立完成,前后端编码,PC端管理后台编码,测试,上线至生产环境',
+                        '管理后台地址:http://www.xiaomingming.top/hcwy/admin',
+                        '管理后台测试帐号:admin,密:Afran888888',
+                    ]
+                }, {
+                    title: 'api接口管理系统',
+                    jumpUrl: 'http://www.xiaomingming.top',
+                    qrImage: 'http://www.xiaomingming.top/files/hcwy/qr/ec29f1e62d824c55aa5f8a755f87de6a.png',
+                    technology: 'webpack vue jQuery 七牛云 CDN 妹子UI',
+                    infos: [
+                        '个人练手项目,开源至github',
+                        '适配移动端,让开发者能在公交上,地铁上,也能随时响应项目的号召,随时查看接口,测试接口',
+                        '独立完成,前后端编码,测试,上线至生产环境',
+                        'github:https://github.com/nba048/apiManager',
+                        '项目地址:http://www.xiaomingming.top',
+                        '测试帐号:17070851172,密:1122112',
+                    ]
+                }],
+                works: [{
+                    e_time: '2018.09',
+                    s_time: '2016.04',
+                    complay: '在广东法航实业有限公司任职',
+                    woker: '<技术部/前端 & 公众号>',
+                    info: '全权负责法航&惠车无忧移动端业务设计,流程设计,编码实施,兼容测试,部署生产环境'
+                }, {
+                    e_time: '2016.04',
+                    s_time: '2015.11',
+                    complay: '在中山市中辰信息科技有限公司任职',
+                    woker: '<技术部/安卓>',
+                    info: '负责无忧帮帮网约车app端编码,基于百度地图LBS定位,行驶轨迹,进程保活等'
+                }],
+            },
+            methods: {
+                init: function () {
+                    var _this = this;
+                    $('#info-layout').fullpage({
+                        navigation: true,
+                        onLeave: function (index, nextIndex, direction) {
+                            _this.onReset(nextIndex - 1);
+                        }
+                    });
+                },
+                onNext() {
+                    $.fn.fullpage.moveSectionDown();
+                },
+                onReset: function (item) {
+                    var temp = item.jumpUrl;
+                    item.jumpUrl = '/';
+                    setTimeout(function () {
+                        item.jumpUrl = temp;
+                    }, 100);
+                }
+            },
+            computed: {},
+            created: function () {
+                this.$nextTick(function () {
+                    this.init();
+                })
+            }
+        });
+    });
+</script>
+</body>
+<style type="text/css">
+    .qr-info {
+        position: absolute;
+        bottom: 10%;
+    }
+
+    .qr-info .q-txt {
+        padding-left: 20px;
+    }
+
+    .qr-info .q-img {
+        width: 100px;
+    }
+
+    .pro-info {
+        top: 20%;
+        position: relative;
+    }
+
+    .pro-info .p-title {
+        color: #FFC556;
+        font-size: 25px;
+        font-weight: bold;
+        line-height: 90px;
+    }
+
+    .pro-info .p-info2 {
+        position: relative;
+        width: 600px;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, .5);
+    }
+
+    .pro-info .p-info2 .p-point {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background-color: #FFC556;
+        border-radius: 50px;
+        left: -25px;
+        top: 8px;
+    }
+
+    .pro-info .p-info1 {
+        line-height: 50px;
+        margin-bottom: 20px;
+    }
+
+    .h100 {
+        height: 100%;
+    }
+
+    .ifram {
+        z-index: 1;
+        height: 80%;
+        right: 0;
+        top: 10%;
+        position: absolute;
+    }
+
+    .ifram-img {
+        height: 100%;
+        width: 350px;
+    }
+
+    .ifram-ifa {
+        z-index: 2;
+        width: 88%;
+        height: 76%;
+        position: absolute;
+        left: 6%;
+        bottom: 12%;
+    }
+
+    .ifram-act {
+        display: inline-block;
+        position: absolute;
+        bottom: 4%;
+        width: 40px;
+        height: 40px;
+        left: 50%;
+        margin-left: -20px;
+    }
+
+    .work-info {
+        position: relative;
+        padding-left: 60px;
+        margin-bottom: 25px;
+    }
+
+    .work-info .w-info {
+        color: white;
+    }
+
+    .work-info .w-info:hover .w-complay {
+        color: #FEC74A;
+    }
+
+    .work-info:hover .t-radio {
+        width: 16px;
+        height: 16px;
+        left: 32px;
+        top: 30px;
+        border: 3px solid #FEC74A;
+    }
+
+    .work-info .w-info .w-woker {
+        font-size: 12px;
+        color: #BCC896;
+    }
+
+    .work-info .w-info .w-info {
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    .work-info .w-info .w-complay {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .work-info .t-stime {
+        position: absolute;
+        left: -35px;
+        top: 20px;
+        color: #FEC74A;
+    }
+
+    .work-info .t-radio {
+        display: inline-block;
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        left: 35px;
+        top: 33px;
+        border-radius: 50px;
+        border: 1px solid #FEC74A;
+    }
+
+    .work-info .t-line {
+        display: inline-block;
+        position: absolute;
+        background-color: #FEC74A;
+        width: 10px;
+        height: 1px;
+        left: 25px;
+        top: 38px;
+    }
+
+    .work-info .t-etime {
+        position: absolute;
+        left: -35px;
+        top: 40px;
+        color: #FEC74A;
+    }
+
+    .w-header {
+        position: relative;
+        color: #FEC74A;
+        height: 100px;
+        line-height: 75px;
+        font-size: 20px;
+        padding-left: 100px;
+    }
+
+    .w-header .w-y {
+        position: absolute;
+        left: 16px;
+        top: -5px;
+    }
+
+    .w-header .w-t {
+        position: absolute;
+        left: 20px;
+        bottom: 10px;
+        font-size: 15px;
+        color: #BCC896;
+    }
+
+    .w-header .w-j {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .i-layout .i-img:hover {
+        border-radius: 50px;
+        box-shadow: 0px 0px 30px hsla(0, 0%, 40%, .6);
+        -webkit-box-shadow: 0px 0px 30px hsla(0, 0%, 40%, .6);
+    }
+
+    .i-work {
+        position: relative;
+    }
+
+    .i-work .i-r {
+        position: absolute;
+        border-radius: 50px;
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        top: 0;
+        border: 3px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .i-work .i-h {
+        position: absolute;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.75);
+        width: 4px;
+        height: 270px;
+        bottom: 0;
+        left: 38px;
+    }
+
+    .mouse {
+        -webkit-animation: sdb05 1.3s linear infinite;
+        -moz-animation: sdb05 1.3s linear infinite;
+        -ms-animation: sdb05 1.3s linear infinite;
+        -o-animation: sdb05 1.3s linear infinite;
+        animation: sdb05 1.3s linear infinite;
+        cursor: pointer;
+        width: 20px;
+    }
+
+    .i-top {
+        position: relative;
+        text-align: center;
+    }
+
+    .i-top .i-img {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        left: 50%;
+        top: 8px;
+        margin-left: -55px;
+        border-radius: 70px;
+    }
+
+    .i-top .i-bg {
+        width: 140px;
+    }
+
+    .i-layout {
+        position: relative;
+        display: flex;
+        text-align: center;
+        margin: 30px 0 50px;
+    }
+
+    .i-layout .l-item {
+        flex: 1;
+    }
+
+    .i-layout .l-item .i-txt {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .i-layout .l-item .i-img {
+        width: 60px;
+    }
+
+    .i-info {
+        line-height: 25px;
+    }
+
+    .contener, .contener-info {
+        position: relative;
+        width: 960px;
+        margin: 0 auto;
+        color: white;
+        min-height: 350px;
+    }
+
+    .contener-info {
+        width: 500px;
+    }
+
+    .l-info {
+        background: url("http://v.xiaomingming.top/manager/bg_1.jpg") no-repeat center;
+    }
+
+    .l-works {
+        background: url("http://v.xiaomingming.top/manager/bg_3.jpg") no-repeat center;
+    }
+
+    body {
+        background: url("http://v.xiaomingming.top/manager/bg_2.jpg") no-repeat center;
+        font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    body, .l-info, .l-works {
+        position: relative;
+        background-size: 100% 100%;
+    }
+
+    .alignC {
+        text-align: center;
+    }
+
+    @-webkit-keyframes sdb05 {
+        0% {
+            -webkit-transform: translateY(20px);
+            opacity: 0
+        }
+        50% {
+            opacity: 1
+        }
+        100% {
+            -webkit-transform: translateY(0);
+            opacity: 0
+        }
+    }
+
+    @keyframes sdb05 {
+        0% {
+            -webkit-transform: translateY(20px);
+            opacity: 0
+        }
+        50% {
+            opacity: 1
+        }
+        100% {
+            -webkit-transform: translateY(0);
+            opacity: 0
+        }
+    }
+</style>
+</html>

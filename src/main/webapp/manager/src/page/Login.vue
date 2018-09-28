@@ -18,7 +18,7 @@
       <div class="c-regist" @click="isRegist = !isRegist">{{isRegist? '已有帐户,马上登陆':'没有帐户,马上注册'}}</div>
       <div class="c-forget">忘记密码</div>
     </div>
-    <div class="c-version w100">@2018 xiao明</div>
+    <div class="c-version w100" onclick="window.location.href = 'about'">@关于xiao明</div>
     <am-modal :is-show.sync="isShowCode" class="am-u-sm-12 am-u-md-4 am-center">
       <am-modal-header class="orange alignC">个人项目,请君谅解</am-modal-header>
       <am-modal-body>

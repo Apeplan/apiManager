@@ -48,7 +48,6 @@ public class ProjectConfig extends JFinalConfig {
      * 配置路由
      */
     public void configRoute(Routes me) {
-        me.setBaseViewPath("/manager/dist");
 //        me.setBaseViewPath("/views");
         me.add("/", ViewController.class);
         me.add("/user", UserCtr.class);
