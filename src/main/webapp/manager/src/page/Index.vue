@@ -21,12 +21,12 @@
               <i class="am-icon-refresh" @click="init"></i>
               <i class="am-icon-list" @click="onReset"></i>
               <i class="am-icon-folder" @click="def = {id: 0, name: ''};isShowEdit = true"></i>
-              <i class="am-icon-file-o" @click="openTab({name: '新建api', isshow: true, id: 0})"></i>
+              <i class="am-icon-file-o" @click="openTab({name: '新建文档', isshow: true, id: 0})"></i>
             </div>
           </div>
           <am-scrollbar class="a-menu" ref="vmenu">
             <div style="height: 153px;"></div>
-            <div :id="item.name" class="fo-layout" v-for="item in menus">
+            <div :id="item.id" class="fo-layout" v-for="item in menus">
               <div class="fo-main slide-bg" @click="onOpen(item)">
                 <am-icon class="icon-0" :type="item.isOpen ? 'folder-open-o':'folder-o'"></am-icon>
                 <i class="icon-1 am-icon-edit" @click.stop="def = item;isShowEdit = true"></i>
@@ -48,7 +48,7 @@
             <template v-for="item in tabs">
               <span :class="tabstyle(item)" @click="openTab(item)">
                   <span class=" t-title">{{item.name}}</span>
-                  <span @click.stop="closeTab(item)" class="am-icon-close t-close"></span>
+                  <span v-if="item.id != 0" @click.stop="closeTab(item)" class="am-icon-close t-close"></span>
               </span>
             </template>
           </div>
@@ -100,7 +100,7 @@
         search: '',
         isSlide: false,
         tabs: [{
-          name: '新建api', isshow: true, id: 0
+          name: '新建文档', isshow: true, id: 0
         }],
         menus: [],
       }
@@ -187,14 +187,20 @@
         })
       },
       onChange(item) {
-        for (var i = 0; i < _this.tabs.length; i++) {
-          if (_this.tabs[i].isshow == true) {
-            _this.tabs[i].name = item.inName;
-            _this.tabs[i].id = item.id;
-            for (var j = 0; j < _this.menus.length; j++) {
-              if (_this.menus[j].id == item.foId) {
-                _this.getFooders(_this.menus[j]);
-                return;
+
+        console.info('start')
+        console.info(item)
+        console.info('end')
+        for (var j = 0; j < _this.menus.length; j++) {
+          if (_this.menus[j].id == item.foId) {
+            _this.getFooders(_this.menus[j]);
+            for (var i = 0; i < _this.tabs.length; i++) {
+              if (_this.tabs[i].isshow == true) {
+                if (_this.tabs[i].id != 0) {
+                  _this.tabs[i].name = item.inName;
+                } else {
+                  _this.openTab({name: item.inName, isshow: true, id: item.id});
+                }
               }
             }
             return;
@@ -213,6 +219,8 @@
           } else {
             _this.menus = res;
             if (typeof menu == 'object') {
+              console.info('menu')
+              console.info(menu);
               if (!menu.isOpen) {
                 _this.onOpen(menu);
                 _this.$refs.vmenu.scrollTop(0);
@@ -251,7 +259,7 @@
         }
         var isexist = false;
         for (var i = 0; i < _this.tabs.length; i++) {
-          if (_this.tabs[i].name == item.name) {
+          if (_this.tabs[i].id == item.id) {
             isexist = true;
             _this.tabs[i].isshow = true;
           } else {
@@ -277,7 +285,7 @@
         }
         for (var i = 0; i < _this.menus.length; i++) {
           var item = _this.menus[i];
-          var $layout = $('#' + item.name).find('.fo-sub');
+          var $layout = $('#' + item.id).find('.fo-sub');
           if ($layout && item.ins.length > 0) {
             if ($layout) {
               if (isOpen) {
@@ -292,7 +300,7 @@
         }
       },
       onOpen(item) {
-        var $layout = $('#' + item.name).find('.fo-sub');
+        var $layout = $('#' + item.id).find('.fo-sub');
         if ($layout && item.ins.length > 0) {
           if ($layout) {
             item.isOpen ? $layout.slideUp() : $layout.slideDown();

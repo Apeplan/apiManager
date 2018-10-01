@@ -61,8 +61,7 @@
         </am-panel-footer>
       </am-panel>
       <am-panel>
-        <am-panel-header title="接口文档" :title-level=4></am-panel-header>
-        <am-panel-body>
+        <am-panel-body style="padding: 0">
           <v-editor ref="md" :initData="info.in_doc" :editorId="'markdown-editor-' + in_id"></v-editor>
         </am-panel-body>
       </am-panel>
@@ -99,7 +98,6 @@
 
 <script>
   import editor from '@/compoents/EditorMD';
-  let _this = null;
 
   export default {
     data() {
@@ -110,18 +108,32 @@
         responseStr: '',
         info: {in_url: 'http://', params: [], in_response_ok: '', in_response_err: '', in_name: '', fo_id: 0},
         params: [],
+        isCreate: false,
       }
     },
     methods: {
       init() {
+        let _this = this;
         if (_this._value.userinfo == null) {
           _this.$router.push('/login')
         }
         if (_this.in_id !== 0) {
           _this.getInerfaces();
+        } else {
+          _this.isCreate = true;
         }
       },
+      reset() {
+        this.def = [];
+        this.in_id = 0;
+        this.isSelectForder = false;
+        this.forderArr = [];
+        this.responseStr = '';
+        this.info = {in_url: 'http://', params: [], in_response_ok: '', in_response_err: '', in_name: '', fo_id: 0};
+        this.params = [];
+      },
       getForders() {
+        let _this = this;
         _this._model.getRequest(_this._model.urls.foder_getFoders, {
           us_id: _this._value.userinfo.id, pr_id: _this._value.projectinfo.id
         }, (res, isErr) => {
@@ -145,11 +157,13 @@
         })
       },
       onSelectForder() {
+        let _this = this;
         _this.info.in_id = 0;
         _this.info.fo_id = _this.def[0].id;
         _this.onSave();
       },
       onSetOK() {
+        let _this = this;
         _this.info.in_response_ok = _this.responseStr;
         _this.$message({
           title: '操作成功,记得保存',
@@ -159,6 +173,7 @@
         });
       },
       onSetErr() {
+        let _this = this;
         _this.info.in_response_err = _this.responseStr;
         _this.$message({
           title: '操作成功,记得保存',
@@ -168,6 +183,7 @@
         });
       },
       onSave() {
+        let _this = this;
         if (_this.isEmpty(_this.info.in_url) || _this.info.in_url.length < 10) {
           _this.$message({
             title: '参数异常',
@@ -187,6 +203,7 @@
           return;
         }
         if (_this.info.fo_id == 0) {
+          _this.forderArr = [];
           _this.getForders();
         } else {
           let instance = _this.$loading();
@@ -207,12 +224,16 @@
                 type: 'success',
                 closeable: true
               });
+              if (_this.isCreate) {
+                _this.reset();
+              }
               _this.$emit('onChange', res);
             }
           })
         }
       },
       onSend() {
+        let _this = this;
         if (_this.isEmpty(_this.info.in_url) || _this.info.in_url.length < 10) {
           _this.$message({
             title: '参数异常',
@@ -257,6 +278,7 @@
         }
       },
       getInerfaces() {
+        let _this = this;
         let instance = _this.$loading();
         _this._model.getRequest(_this._model.urls.interface_getDetail, {
           us_id: _this._value.userinfo.id, in_id: _this.in_id
@@ -274,6 +296,7 @@
         })
       },
       syntaxHighlight(txt) {
+        let _this = this;
         if (_this.isEmpty(txt)) {
           return txt;
         }
@@ -299,6 +322,7 @@
         });
       },
       copyToClipboard(str) {
+        let _this = this;
         try {
           str = JSON.parse(str);
         } catch (e) {
@@ -332,11 +356,8 @@
       'v-editor': editor
     },
     computed: {},
-    created() {
-      this.$nextTick(() => {
-        _this = this;
-        _this.init();
-      })
+    mounted() {
+      this.init();
     },
   }
 </script>
