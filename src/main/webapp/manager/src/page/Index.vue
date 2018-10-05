@@ -6,7 +6,7 @@
           <div class="a-layout">
             <div class="a-header slide-bg">
               <div class="a-mobile">{{_value.userinfo.usName}}</div>
-              <div class="a-project">{{_value.projectinfo.prName}}<i class="am-icon-exchange" @click="_value.projectinfo = null;$router.push('/project')"></i></div>
+              <div class="a-project">{{_value.projectinfo.prName}}<i class="am-icon-exchange" @click="tabs = [];_value.projectinfo = null;$router.push('/project')"></i></div>
             </div>
             <div class="a-search slide-bg">
               <am-input-group block class="relative">
@@ -21,7 +21,7 @@
               <i class="am-icon-refresh" @click="init"></i>
               <i class="am-icon-list" @click="onReset"></i>
               <i class="am-icon-folder" @click="def = {id: 0, name: ''};isShowEdit = true"></i>
-              <i class="am-icon-file-o" @click="openTab({name: '新建文档', isshow: true, id: 0})"></i>
+              <i class="am-icon-file-o" @click="openTab({name: '新建文档', isshow: true, id: -1})"></i>
             </div>
           </div>
           <am-scrollbar class="a-menu" ref="vmenu">
@@ -100,7 +100,7 @@
         search: '',
         isSlide: false,
         tabs: [{
-          name: '新建文档', isshow: true, id: 0
+          name: '新建文档', isshow: true, id: -1
         }],
         menus: [],
       }
@@ -187,10 +187,6 @@
         })
       },
       onChange(item) {
-
-        console.info('start')
-        console.info(item)
-        console.info('end')
         for (var j = 0; j < _this.menus.length; j++) {
           if (_this.menus[j].id == item.foId) {
             _this.getFooders(_this.menus[j]);
@@ -219,7 +215,7 @@
           } else {
             _this.menus = res;
             if (typeof menu == 'object') {
-              console.info('menu')
+              console.info('menu');
               console.info(menu);
               if (!menu.isOpen) {
                 _this.onOpen(menu);
@@ -561,9 +557,6 @@
 
     .am-aside, .a-layout, .a-menu {
       left: -275px;
-    }
-    .editormd-preview-close-btn{
-      display: none !important;
     }
   }
 

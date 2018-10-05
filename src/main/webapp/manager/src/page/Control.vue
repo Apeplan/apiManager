@@ -117,7 +117,7 @@
         if (_this._value.userinfo == null) {
           _this.$router.push('/login')
         }
-        if (_this.in_id !== 0) {
+        if (_this.in_id != -1) {
           _this.getInerfaces();
         } else {
           _this.isCreate = true;
@@ -125,7 +125,7 @@
       },
       reset() {
         this.def = [];
-        this.in_id = 0;
+        this.in_id = -1;
         this.isSelectForder = false;
         this.forderArr = [];
         this.responseStr = '';
@@ -158,7 +158,7 @@
       },
       onSelectForder() {
         let _this = this;
-        _this.info.in_id = 0;
+        _this.info.in_id = -1;
         _this.info.fo_id = _this.def[0].id;
         _this.onSave();
       },
@@ -242,10 +242,12 @@
             closeable: true
           })
         } else {
-          let instance = _this.$loading();
           var req = {
             requestUrl: _this.info.in_url
           };
+          _this.$nprogress.start({
+            loading: true
+          });
           $.each(_this.params, (index, item) => {
             var key = item.pa_key;
             var value = item.pa_value;
@@ -254,8 +256,13 @@
             }
           });
           $.post(_this._model.urls.interface_getSendResponse, req, (res) => {
-            instance.close();
-            _this.responseStr = '' + res;
+            _this.$nprogress.end();
+            try {
+              res = JSON.parse(str);
+            } catch (e) {
+              console.info(e);
+            }
+            _this.responseStr = res;
             _this.$message({
               title: '请求成功',
               message: '_',

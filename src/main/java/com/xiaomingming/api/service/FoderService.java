@@ -20,7 +20,7 @@ public class FoderService {
 
     private static final FoForder dao = new FoForder().dao();
 
-    private static final String sql_total_search = "select t1.id as in_id, t1.in_name as in_name, t2.fo_name as fo_name, t2.id as fo_id from in_interface as t1 inner join fo_forder as t2 on t1.fo_id = t2.id inner join pr_project as t3 on t2.pr_id = t3.id where t1.in_url like ? or t1.in_name like ? or t2.fo_name like ? and t3.id = ?";
+    private static final String sql_total_search = "select t1.id as in_id, t1.in_name as in_name, t2.fo_name as fo_name, t2.id as fo_id from in_interface as t1 inner join fo_forder as t2 on t1.fo_id = t2.id inner join pr_project as t3 on t2.pr_id = t3.id where ( t1.in_url like ? or t1.in_name like ? or t2.fo_name like ? ) and t3.id = ?";
 
     public List<FoForder> getAllFoder(Integer pr_id) {
         return dao.find("select * from fo_forder where pr_id = ?", pr_id);

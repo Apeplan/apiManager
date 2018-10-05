@@ -6,6 +6,7 @@
 <script>
   import scriptjs from 'scriptjs'
   import {defaultConfig, defaultDocument} from '../../config/editor'
+
   export default {
     props: {
       editorId: {
@@ -74,16 +75,16 @@
         (async () => {
 //          await this.fetchScript('/static/editor.md/editormd.min.js')
           this.$nextTick(() => {
-            this.editor = window.editormd(this.editorId, config)
+            this.editor = window.editormd(this.editorId, config);
             this.editor.on('load', () => {
               setTimeout(() => { // hack bug: 一个页面多个编辑器只能初始化其中一个数据问题
                 this.editorLoaded = true
-                this.initData && this.editor.setMarkdown(this.initData)
+                this.initData && this.editor.setMarkdown(this.initData);
                 this.previewing()
               }, this.initDataDelay)
-            })
+            });
             this.onchange && this.editor.on('change', () => {
-              let html = this.editor.getPreviewedHTML()
+              let html = this.editor.getPreviewedHTML();
               this.onchange({
                 markdown: this.editor.getMarkdown(),
                 html: html,
@@ -100,7 +101,12 @@
   }
 </script>
 <style type="text/css">
-  a[title="使用帮助"] {
-    display: none;
+  /**
+   * 当在手机端显示时,只允许查看文档
+   */
+  @media only screen and (max-width: 340px) {
+    .markdown-editor-box .editormd-preview-close-btn {
+      display: none !important;
+    }
   }
 </style>
