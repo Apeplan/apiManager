@@ -160,7 +160,7 @@ public class InterfaceCtr extends BaseCtr {
                 String resStr = HttpClientUtils.post(URI.create(requestUrl), map);
                 try {
                     Object obj = JSON.parse(resStr);
-                    renderJson();
+                    renderJson(JSON.toJSONString(obj));
                 } catch (Exception e) {
                     renderText(resStr);
                 }
