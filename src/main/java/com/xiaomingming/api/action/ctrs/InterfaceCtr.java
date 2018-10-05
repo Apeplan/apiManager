@@ -157,7 +157,13 @@ public class InterfaceCtr extends BaseCtr {
         }
         try {
             if (!StrKit.isBlank(requestUrl)) {
-                renderText(HttpClientUtils.post(URI.create(requestUrl), map));
+                String resStr = HttpClientUtils.post(URI.create(requestUrl), map);
+                try {
+                    Object obj = JSON.parse(resStr);
+                    renderJson();
+                } catch (Exception e) {
+                    renderText(resStr);
+                }
             } else {
                 onErr("接口requestUrl不能为空");
             }

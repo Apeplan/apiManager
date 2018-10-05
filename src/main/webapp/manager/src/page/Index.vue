@@ -562,6 +562,9 @@
     .am-aside, .a-layout, .a-menu {
       left: -275px;
     }
+    .editormd-preview-close-btn{
+      display: none !important;
+    }
   }
 
   .toggle-slide-btn {
@@ -584,7 +587,7 @@
   }
 
   .am-aside {
-    z-index: 5;
+    z-index: 500;
     width: 275px;
     color: white;
     background-color: #2E2E2E;
