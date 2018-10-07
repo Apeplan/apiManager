@@ -58,7 +58,7 @@ public class InterfaceCtr extends BaseCtr {
             String responsesErr = getPara("in_response_err");
             String docStr = getPara("in_doc");
             try {
-                if ("0".equals(in_id)) {
+                if ("-1".equals(in_id)) {
                     onOk(service.createItem(fo_id, in_url, in_name, params, responsesOk, responsesErr, docStr));
                 } else {
                     onOk(service.updateItem(fo_id, in_id, in_url, in_name, params, responsesOk, responsesErr, docStr));

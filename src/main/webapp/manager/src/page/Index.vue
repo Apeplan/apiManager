@@ -188,11 +188,11 @@
       },
       onChange(item) {
         for (var j = 0; j < _this.menus.length; j++) {
-          if (_this.menus[j].id == item.foId) {
+          if (_this.menus[j].id === item.foId) {
             _this.getFooders(_this.menus[j]);
             for (var i = 0; i < _this.tabs.length; i++) {
-              if (_this.tabs[i].isshow == true) {
-                if (_this.tabs[i].id != 0) {
+              if (_this.tabs[i].isshow === true) {
+                if (_this.tabs[i].id !== -1) {
                   _this.tabs[i].name = item.inName;
                 } else {
                   _this.openTab({name: item.inName, isshow: true, id: item.id});

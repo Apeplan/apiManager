@@ -52,9 +52,10 @@
         <am-panel-footer>
           <div class="am-cf">
             <am-button-group class="pad-0 am-fr">
-              <am-button :round="true" class="inline-pad" color="danger" @click="onSetErr">设为失败示例</am-button>
-              <am-button class="inline-pad" color="success" @click="onSetOK">设为成功示例</am-button>
-              <am-button class="inline-pad" color="secondary" @click="copyToClipboard(responseStr)">复制结果</am-button>
+              <!--<am-button :round="true" class="inline-pad" color="danger" @click="onSetErr">设为失败示例</am-button>-->
+              <!--<am-button class="inline-pad" color="success" @click="onSetOK">设为成功示例</am-button>-->
+              <!--<am-button :round="true" class="inline-pad" color="secondary" @click="copyToClipboard(responseStr)">复制结果</am-button>-->
+              <am-button :round="true" color="danger" @click="copyToClipboard(responseStr)">复制结果</am-button>
               <div class="am-cf"></div>
             </am-button-group>
           </div>
@@ -65,24 +66,24 @@
           <v-editor ref="md" :initData="info.in_doc" :editorId="'markdown-editor-' + in_id"></v-editor>
         </am-panel-body>
       </am-panel>
-      <div class="pad-0">
-        <am-panel color="danger" ref="resErr">
-          <am-panel-header title="请求失败示例" :title-level=4></am-panel-header>
-          <am-panel-body>
-            <pre v-html="resetJson(info.in_response_err)"></pre>
-          </am-panel-body>
-        </am-panel>
-      </div>
-      <div class="pad-0">
-        <am-panel color="success" ref="resErr">
-          <am-panel-header title="请求成功示例" :title-level=4></am-panel-header>
-          <am-panel-body>
-            <pre v-html="resetJson(info.in_response_ok)"></pre>
-          </am-panel-body>
-        </am-panel>
-      </div>
+      <!--<div class="pad-0">-->
+      <!--<am-panel color="danger" ref="resErr">-->
+      <!--<am-panel-header title="请求失败示例" :title-level=4></am-panel-header>-->
+      <!--<am-panel-body>-->
+      <!--<pre v-html="resetJson(info.in_response_err)"></pre>-->
+      <!--</am-panel-body>-->
+      <!--</am-panel>-->
+      <!--</div>-->
+      <!--<div class="pad-0">-->
+      <!--<am-panel color="success" ref="resErr">-->
+      <!--<am-panel-header title="请求成功示例" :title-level=4></am-panel-header>-->
+      <!--<am-panel-body>-->
+      <!--<pre v-html="resetJson(info.in_response_ok)"></pre>-->
+      <!--</am-panel-body>-->
+      <!--</am-panel>-->
+      <!--</div>-->
       <div class="am-cf"></div>
-      <div style="height: 30px;"></div>
+      <!--<div style="height: 30px;"></div>-->
       <am-modal :is-show.sync="isSelectForder" class="am-u-sm-12 am-u-md-4 am-center">
         <am-modal-header class="orange alignC">保存至</am-modal-header>
         <am-modal-body>
@@ -183,9 +184,8 @@
         });
       },
       onSave() {
-        let _this = this;
-        if (_this.isEmpty(_this.info.in_url) || _this.info.in_url.length < 10) {
-          _this.$message({
+        if (this.isEmpty(this.info.in_url) || this.info.in_url.length < 10) {
+          this.$message({
             title: '参数异常',
             type: 'warning',
             message: '请正确填入要保存的url',
@@ -193,8 +193,8 @@
           });
           return;
         }
-        if (_this.isEmpty(_this.info.in_name)) {
-          _this.$message({
+        if (this.isEmpty(this.info.in_name)) {
+          this.$message({
             title: '参数异常',
             type: 'warning',
             message: '请正确填入要保存的接口名',
@@ -202,14 +202,27 @@
           });
           return;
         }
-        if (_this.info.fo_id == 0) {
-          _this.forderArr = [];
-          _this.getForders();
+        if (this.info.fo_id == 0) {
+          this.forderArr = [];
+          this.getForders();
         } else {
-          let instance = _this.$loading();
-          _this.info.us_id = _this._value.userinfo.id;
-          _this.info.params = JSON.stringify(_this.params);
-          _this.info.in_doc = _this.$refs.md.getMarkdown();
+          let instance = this.$loading();
+          this.info.us_id = this._value.userinfo.id;
+          this.info.params = JSON.stringify(this.params);
+          this.info.in_doc = this.$refs.md.getMarkdown();
+          this.info.in_response_ok = '';
+          this.info.in_response_err = '';
+          // try {
+          //   this.info.in_response_ok = JSON.stringify(this.info.in_response_ok);
+          // } catch (e) {
+          //   console.error(e);
+          // }
+          // try {
+          //   this.info.in_response_err = JSON.stringify(this.info.in_response_err);
+          // } catch (e) {
+          //   console.error(e);
+          // }
+          var _this = this;
           _this._model.getRequest(_this._model.urls.interface_saveInterface, _this.info, (res, isErr) => {
             instance.close();
             if (isErr) {
@@ -248,6 +261,7 @@
           _this.$nprogress.start({
             loading: true
           });
+          _this.responseStr = '请稍候...';
           $.each(_this.params, (index, item) => {
             var key = item.pa_key;
             var value = item.pa_value;
