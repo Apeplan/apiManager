@@ -313,6 +313,7 @@
           } else {
             _this.info = res;
             _this.params = res.params;
+            _this.$refs.md.setMarkdown(_this.info.in_doc);
           }
         })
       },
